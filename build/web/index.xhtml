@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+
+
+
+
+        <h:form enctype="multipart/form-data">
+            <p:panelGrid columns="2">
+                <p:panelGrid columns="4">
+                    <h:outputText value ="Nombre"/>
+                    <p:inputText value="#{controller.p.nombre}"/>
+                    <h:outputText value ="Precio"/>
+                    <p:inputText value="#{controller.p.precio}"/>
+                    <h:outputText value ="id"/>
+                    <p:inputText value="#{controller.p.id}"/>
+                </p:panelGrid>
+
+                <h:graphicImage style="width: 150px;height: 100px" alt="mi imagen" value="Imagenes\\Productos\\.png"/>
+
+            </p:panelGrid>
+            <h:commandButton  value="Registrar" action="#{controller.registrarProducto()}"/>
+        </h:form>
+        <h:form enctype="multipart/form-data">
+
+            <p:dataTable var="pro" value="#{controller.listaproductos}">
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{pro.nombre}"/>
+                </p:column>
+                <p:column headerText="id">
+                    <h:outputText value="#{pro.id}"/>
+
+                </p:column>
+
+                <p:column headerText="Precio">
+                    <h:outputText value="#{pro.precio}"/>
+
+                </p:column>
+
+                <p:column headerText="Opciones">
+                    <h:commandButton value="Consultar" action="#{controller.consultarProducto(pro)}"/>
+                    <p:commandLink onclick="PF('dlpg').show();" action="#{controller.consultarProducto(pro)}">
+                        <p:graphicImage style="width: 40px;height: 40px" value="m"/>
+                    </p:commandLink>
+
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <h:form enctype="multipart/form-data">
+            <p:dialog header="Basic Dialog" widgetVar="dlpg" minWidth="500" minHeight="40">
+                <p:panel>
+                    <p:autoUpdate/>
+                    Producto : #{controller.p.nombre}
+                    <p:fileUpload value="#{controller.filep}" mode="simple" skinSimple="true"/>
+                    <h:commandButton value="agregar" action="#{controller.upload()}"/>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+
+
+
+
+    </h:body>
+</html>
+
